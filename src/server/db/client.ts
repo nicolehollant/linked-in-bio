@@ -6,6 +6,9 @@ declare global {
 
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient()
+  if (!global.prisma) {
+    global.prisma = prisma
+  }
 } else {
   if (!global.prisma) {
     global.prisma = new PrismaClient()
