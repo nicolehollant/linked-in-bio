@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
   },
+  auth: { origin: process.env.NODE_ENV === 'production' ? 'https://linkedinb.io' : 'http://localhost:3000' },
   // auth: {
   /* The origin is set to the development origin. Change this when deploying to production by setting `origin` in this config before build-time or by exporting `AUTH_ORIGIN` by running `export AUTH_ORIGIN=...` */
   // origin: 'http://localhost:3000',

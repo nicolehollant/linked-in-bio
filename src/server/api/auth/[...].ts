@@ -3,11 +3,10 @@ import GithubProvider from 'next-auth/providers/github'
 import { NuxtAuthHandler } from '#auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '../../db/client'
-import { PrismaClient } from '@prisma/client'
 
 export default NuxtAuthHandler({
   // TODO: ADD YOUR OWN AUTHENTICATION PROVIDER HERE, READ THE DOCS FOR MORE: https://sidebase.io/nuxt-auth
-  adapter: PrismaAdapter(prisma ?? new PrismaClient()),
+  adapter: PrismaAdapter(prisma!),
   pages: {
     // Change the default behavior to use `/login` as the path for the sign-in page
     signIn: '/auth/login',
