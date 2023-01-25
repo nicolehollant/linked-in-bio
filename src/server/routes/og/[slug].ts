@@ -1,13 +1,25 @@
 import { readFileSync } from 'fs'
+import { opendir } from 'fs/promises'
 import { join, resolve } from 'path'
 import { Resvg, ResvgRenderOptions } from '@resvg/resvg-js'
 import satori from 'satori'
+
+async function* walk(dir: any): any {
+  for await (const d of await opendir(dir)) {
+    const entry = join(dir, d.name)
+    if (d.isDirectory()) yield* walk(entry)
+    else if (d.isFile()) yield entry
+  }
+}
 
 export default defineEventHandler(async (event) => {
   const client = event.context.prisma
   const slug = event.context.params.slug
   const fonts = ['arial.ttf', 'arial_bold.ttf']
-  console.log(process.cwd())
+
+  for await (const p of walk(process.cwd())) {
+    console.log(p)
+  }
 
   try {
     const user = await client.user.findFirst({

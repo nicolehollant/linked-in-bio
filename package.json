@@ -12,6 +12,7 @@
     "@nuxtjs/tailwindcss": "^6.1.0",
     "@sidebase/nuxt-auth": "0.4.0-alpha.3",
     "@types/js-beautify": "^1.13.3",
+    "@types/node": "^18.11.18",
     "@types/splitpanes": "^2.2.1",
     "nuxt": "npm:nuxt3@latest",
     "nuxt-icon": "^0.1.8",
