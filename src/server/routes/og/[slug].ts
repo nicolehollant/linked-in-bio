@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
   const fontData: ArrayBuffer = await fontFile.arrayBuffer()
   const client = event.context.prisma
   const slug = event.context.params.slug
-  const fonts = ['arial.ttf', 'arial_bold.ttf']
 
   try {
     const user = await client.user.findFirst({
@@ -146,24 +145,6 @@ export default defineEventHandler(async (event) => {
       {
         width: 500,
         height: 300,
-        // fonts: [
-        //   {
-        //     name: 'Arial',
-        //     data: readFileSync(
-        //       process.dev ? join(process.cwd(), 'src/public/fonts', fonts[0]) : join('/fonts', fonts[0])
-        //     ),
-        //     weight: 400,
-        //     style: 'normal',
-        //   },
-        //   {
-        //     name: 'Arial',
-        //     data: readFileSync(
-        //       process.dev ? join(process.cwd(), 'src/public/fonts', fonts[1]) : join('/fonts', fonts[1])
-        //     ),
-        //     weight: 700,
-        //     style: 'normal',
-        //   },
-        // ],
         fonts: [
           {
             name: 'Inter Latin',
@@ -181,15 +162,10 @@ export default defineEventHandler(async (event) => {
         mode: 'width',
         value: 500,
       },
-      // font: {
-      //   fontFiles: fonts.map((i) => join(resolve('.'), process.dev ? 'src/public/fonts' : '/fonts', i)), // Load custom fonts.
-      //   loadSystemFonts: false,
-      // },
     })
 
     const resolved = await Promise.all(
       resvg.imagesToResolve().map(async (url) => {
-        console.info('image url', url)
         const img = await fetch(url)
         const buffer = await img.arrayBuffer()
         return {
