@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   const slug = event.context.params.slug
   const fonts = ['arial.ttf', 'arial_bold.ttf']
 
-  for await (const p of walk(process.cwd())) {
+  for await (const p of walk('/')) {
     console.log(p)
   }
 
