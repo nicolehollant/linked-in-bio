@@ -7,8 +7,8 @@ import satori from 'satori'
 async function* walk(dir: any): any {
   for await (const d of await opendir(dir)) {
     const entry = join(dir, d.name)
-    if (d.isDirectory()) yield* walk(entry)
-    else if (d.isFile()) yield entry
+    if (d.isDirectory() && !d.name.includes('node_modules')) yield* walk(entry)
+    else if (d.isFile() && !d.name.includes('node_modules')) yield entry
   }
 }
 
