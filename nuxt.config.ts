@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
     AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
-    NUXT_AUTH_SECRET: process.env.NUXTAUTH_SECRET,
+    NUXT_AUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
   auth: { origin: process.env.NODE_ENV === 'production' ? 'https://linkedinb.io' : 'http://localhost:3000' },
   // auth: {
