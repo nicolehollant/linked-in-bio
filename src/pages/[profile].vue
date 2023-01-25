@@ -54,6 +54,13 @@
 const { $client } = useNuxtApp()
 const route = useRoute()
 const account = await $client.getProfile.useQuery(route.params.profile + '')
+const url = process.dev ? 'http://localhost:3000' : 'https://linkedinb.io'
+
+useCustomHead(
+  computed(() => account.data.value?.username ?? 'LinkedInB.io'),
+  computed(() => account.data.value?.bio ?? ''),
+  computed(() => `${url}/og/${route.params.profile}`)
+)
 </script>
 
 <style scoped></style>
