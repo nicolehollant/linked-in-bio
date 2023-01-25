@@ -4,22 +4,13 @@ import { join, resolve } from 'path'
 import { Resvg, ResvgRenderOptions } from '@resvg/resvg-js'
 import satori from 'satori'
 
-async function* walk(dir: any): any {
-  for await (const d of await opendir(dir)) {
-    const entry = join(dir, d.name)
-    if (d.isDirectory() && d.name.includes('fonts') && !d.name.includes('node_modules')) yield* walk(entry)
-    else if (d.isFile() && d.name.includes('fonts') && !d.name.includes('node_modules')) yield entry
-  }
-}
+const fontFile = await fetch('https://og-playground.vercel.app/inter-latin-ext-700-normal.woff')
+const fontData: ArrayBuffer = await fontFile.arrayBuffer()
 
 export default defineEventHandler(async (event) => {
   const client = event.context.prisma
   const slug = event.context.params.slug
   const fonts = ['arial.ttf', 'arial_bold.ttf']
-
-  for await (const p of walk('/')) {
-    console.log(p)
-  }
 
   try {
     const user = await client.user.findFirst({
@@ -156,21 +147,28 @@ export default defineEventHandler(async (event) => {
       {
         width: 500,
         height: 300,
+        // fonts: [
+        //   {
+        //     name: 'Arial',
+        //     data: readFileSync(
+        //       process.dev ? join(process.cwd(), 'src/public/fonts', fonts[0]) : join('/fonts', fonts[0])
+        //     ),
+        //     weight: 400,
+        //     style: 'normal',
+        //   },
+        //   {
+        //     name: 'Arial',
+        //     data: readFileSync(
+        //       process.dev ? join(process.cwd(), 'src/public/fonts', fonts[1]) : join('/fonts', fonts[1])
+        //     ),
+        //     weight: 700,
+        //     style: 'normal',
+        //   },
+        // ],
         fonts: [
           {
-            name: 'Arial',
-            data: readFileSync(
-              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[0]) : join('/fonts', fonts[0])
-            ),
-            weight: 400,
-            style: 'normal',
-          },
-          {
-            name: 'Arial',
-            data: readFileSync(
-              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[1]) : join('/fonts', fonts[1])
-            ),
-            weight: 700,
+            name: 'Inter Latin',
+            data: fontData,
             style: 'normal',
           },
         ],
@@ -184,10 +182,10 @@ export default defineEventHandler(async (event) => {
         mode: 'width',
         value: 500,
       },
-      font: {
-        fontFiles: fonts.map((i) => join(resolve('.'), process.dev ? 'src/public/fonts' : '/fonts', i)), // Load custom fonts.
-        loadSystemFonts: false,
-      },
+      // font: {
+      //   fontFiles: fonts.map((i) => join(resolve('.'), process.dev ? 'src/public/fonts' : '/fonts', i)), // Load custom fonts.
+      //   loadSystemFonts: false,
+      // },
     })
 
     const resolved = await Promise.all(
