@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
   const client = event.context.prisma
   const slug = event.context.params.slug
   const fonts = ['arial.ttf', 'arial_bold.ttf']
+  console.log(process.cwd())
 
   try {
     const user = await client.user.findFirst({
@@ -146,13 +147,21 @@ export default defineEventHandler(async (event) => {
         fonts: [
           {
             name: 'Arial',
-            data: readFileSync(join(process.cwd(), process.dev ? 'src/public/fonts' : 'public/fonts', fonts[0])),
+            data: readFileSync(
+              process.dev
+                ? join(process.cwd(), 'src/public/fonts', fonts[0])
+                : join(process.cwd(), 'public/fonts', fonts[0])
+            ),
             weight: 400,
             style: 'normal',
           },
           {
             name: 'Arial',
-            data: readFileSync(join(process.cwd(), process.dev ? 'src/public/fonts' : 'public/fonts', fonts[1])),
+            data: readFileSync(
+              process.dev
+                ? join(process.cwd(), 'src/public/fonts', fonts[1])
+                : join(process.cwd(), 'public/fonts', fonts[1])
+            ),
             weight: 700,
             style: 'normal',
           },
