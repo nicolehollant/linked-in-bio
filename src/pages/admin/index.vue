@@ -304,7 +304,8 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from 'lodash'
+import pkg from 'lodash'
+const { debounce } = pkg
 
 /*
 ## Features

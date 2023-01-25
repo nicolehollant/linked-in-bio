@@ -115,10 +115,11 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from 'lodash'
+import pkg from 'lodash'
 
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import type { AppRouter } from '~/server/trpc/routers'
+const { debounce } = pkg
 
 type RouterInput = inferRouterInputs<AppRouter>
 type RouterOutput = inferRouterOutputs<AppRouter>
