@@ -148,7 +148,7 @@ export default defineEventHandler(async (event) => {
           {
             name: 'Arial',
             data: readFileSync(
-              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[0]) : join('fonts', fonts[0])
+              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[0]) : join('/fonts', fonts[0])
             ),
             weight: 400,
             style: 'normal',
@@ -156,7 +156,7 @@ export default defineEventHandler(async (event) => {
           {
             name: 'Arial',
             data: readFileSync(
-              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[1]) : join('fonts', fonts[1])
+              process.dev ? join(process.cwd(), 'src/public/fonts', fonts[1]) : join('/fonts', fonts[1])
             ),
             weight: 700,
             style: 'normal',
@@ -173,7 +173,7 @@ export default defineEventHandler(async (event) => {
         value: 500,
       },
       font: {
-        fontFiles: fonts.map((i) => join(resolve('.'), process.dev ? 'src/public/fonts' : 'fonts', i)), // Load custom fonts.
+        fontFiles: fonts.map((i) => join(resolve('.'), process.dev ? 'src/public/fonts' : '/fonts', i)), // Load custom fonts.
         loadSystemFonts: false,
       },
     })
