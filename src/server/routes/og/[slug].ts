@@ -4,10 +4,9 @@ import { join, resolve } from 'path'
 import { Resvg, ResvgRenderOptions } from '@resvg/resvg-js'
 import satori from 'satori'
 
-const fontFile = await fetch('https://og-playground.vercel.app/inter-latin-ext-700-normal.woff')
-const fontData: ArrayBuffer = await fontFile.arrayBuffer()
-
 export default defineEventHandler(async (event) => {
+  const fontFile = await fetch('https://og-playground.vercel.app/inter-latin-ext-700-normal.woff')
+  const fontData: ArrayBuffer = await fontFile.arrayBuffer()
   const client = event.context.prisma
   const slug = event.context.params.slug
   const fonts = ['arial.ttf', 'arial_bold.ttf']
